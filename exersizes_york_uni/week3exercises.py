@@ -215,11 +215,12 @@ def pairwise_digits(number_a, number_b):
     return (''.join('1' if a == b else '0' for a, b in zip(num_a, num_b)))
 
 
-assert pairwise_digits(123, 123) == 111
-assert pairwise_digits(123, 456) == 000
-assert pairwise_digits(123, 12) == 110
-assert pairwise_digits(123, 1234) == 1110
-assert pairwise_digits(123, 12345) == 11100
-assert pairwise_digits(12345, 123) == 11100
-assert pairwise_digits(123, 123456) == 111000
-assert pairwise_digits(123456, 123) == 111000
+assert pairwise_digits(123, 123) == '111'
+assert pairwise_digits(123, 456) == '000'
+assert pairwise_digits(123, 12) == '110'
+assert pairwise_digits(123, 1234) == '1110'
+assert pairwise_digits(123, 12345) == '11100'
+assert pairwise_digits(12345, 123) == '11100'
+assert pairwise_digits(123, 123456) == '111000'
+assert pairwise_digits(123456, 123) == '111000'
+
