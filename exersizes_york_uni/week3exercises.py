@@ -113,7 +113,7 @@ def training_zone(age, rate):
 
 # Exersize 3
 
-def is_valid_password(password, min_length, has_upper, has_lower, has_numeric):
+def is_valid_password(password, min_length=8, has_upper=True, has_lower=True, has_numeric=True):
     """
     Validate a password based on given criteria.
 
@@ -212,7 +212,7 @@ def pairwise_digits(number_a, number_b):
     num_a, num_b = str(number_a), str(number_b)
     max_len = max(len(num_a), len(num_b))
     num_a,num_b  = num_a.ljust(max_len, '0'), num_b.ljust(max_len, '0')
-    return int(''.join('1' if a == b else '0' for a, b in zip(num_a, num_b)))
+    return (''.join('1' if a == b else '0' for a, b in zip(num_a, num_b)))
 
 
 assert pairwise_digits(123, 123) == 111
