@@ -113,16 +113,13 @@ class Vector:
         Returns:
             Vector: A new Vector representing the element-wise sum if dimensions match.
             None: If the vectors have different dimensions.
-
-        Raises:
-            ValueError: If other_vector is not an instance of Vector.
+            None if other_vector is not an instance of Vector.
+    
         """
       
-        if not isinstance(other_vector, Vector):
-            raise ValueError("other_vector must be an instance of Vector")
-        if self.dim() != other_vector.dim():
-            #raise ValueError("Vectors must have the same dimension")
+        if not isinstance(other_vector, Vector) or self.dim() != other_vector.dim(): 
             return None
+        
         return Vector([ self._vector[i] + other_vector.get(i) for i in range(self.dim()) ])
         
     # Exersoze 7: you need to implement a method equals(other_vector) 
@@ -131,22 +128,18 @@ class Vector:
     
     def equals(self, other_vector):
         """
-        Compares this vector to another vector for equality.
+        Compares this vector to another object for equality.
 
         Parameters:
-            other_vector (Vector): The vector to compare with.
+            other_vector (any): The object to compare with.
 
         Returns:
-            bool: True if both vectors have the same dimension and all corresponding elements are equal (within floating point tolerance), False otherwise.
-
-        Raises:
-            ValueError: If other_vector is not an instance of Vector.
+            bool: True if both are Vector instances with the same dimension and all corresponding elements are equal (within floating point tolerance), False otherwise.
         """
         
-        if not isinstance(other_vector, Vector):
-            raise ValueError("other_vector must be an instance of Vector")
-        if self.dim() != other_vector.dim():
+        if not isinstance(other_vector, Vector) or self.dim() != other_vector.dim():
             return False
+       
         return all( math.isclose( self._vector[i], other_vector.get(i) ) for i in range(self.dim()) )
         
     #Exercise 8:
@@ -213,7 +206,8 @@ class Vector:
         """
         
         if not isinstance(other_vector, Vector) or self.dim() != other_vector.dim():
-            raise ValueError("other_vector must be an instance of Vector with the same dimension")
+            return None
+            #raise ValueError("other_vector must be an instance of Vector with the same dimension")
         return Vector([self._vector[i] + other_vector.get(i) for i in range(self.dim())])
     
     # 2. When considering the multiplication, it is a little bit more complicated, 
@@ -309,6 +303,3 @@ class Vector:
             raise ValueError("Scalar must be an integer or float")
         self._vector = [item * scalar for item in self._vector]
         return self
-    
-    
-    
