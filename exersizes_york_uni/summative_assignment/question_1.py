@@ -123,12 +123,21 @@ try:
 except ValueError: pass
 else: raise AssertionError("Empty plaintext should raise ValueError")
 
-# Valid cases
+for bad in ["ñЖ", "Ж", "ééé", "¡¡¡", "123!!!"]:
+    try:
+        encrypt(bad, "KEY")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Expected ValueError when no ASCII letters remain")
+
+
+
 assert decrypt("LXFOP VEFRN HR", "LEMON") == "ATTACKATDAWN"
 assert decrypt("RIJVS UYVJN", "KEY") == "HELLOWORLD"
 assert decrypt("rijvs uyvjn", "key") == "HELLOWORLD"  # lowercase + spaces tolerated
 
-# Error handling: non-alphabetic key
+
 try:
     decrypt("RIJVS UYVJN", "KEY12")
 except ValueError:
@@ -136,7 +145,7 @@ except ValueError:
 else:
     raise AssertionError("Expected ValueError for non-alphabetic key")
 
-# Error handling: empty ciphertext
+
 try:
     decrypt("", "KEY")
 except ValueError:
@@ -144,7 +153,7 @@ except ValueError:
 else:
     raise AssertionError("Empty ciphertext should raise ValueError")
 
-# (Optional) Error handling: non-string inputs
+
 try:
     decrypt(12345, "KEY")
 except TypeError:
@@ -158,3 +167,11 @@ except TypeError:
     pass
 else:
     raise AssertionError("Non-string key should raise TypeError")
+
+for bad in ["ñЖ", "Ж", "ééé", "¡¡¡", "123!!!"]:
+    try:
+        decrypt(bad, "KEY")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Expected ValueError when no ASCII letters remain")
