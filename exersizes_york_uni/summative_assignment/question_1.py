@@ -36,7 +36,10 @@ def encrypt(plaintext, key):
     
     
 
-    plaintext = ''.join(filter(str.isalpha, plaintext.upper()))
+    plaintext = ''.join(ch for ch in plaintext.upper() if ch.isalpha() and ch.isascii())
+    if not plaintext:
+        raise ValueError("Plaintext must contain at least one ASCII letter (A–Z).")
+    
     repeated_key = (key.upper() * ((len(plaintext) // len(key)) + 1))[:len(plaintext)]
     # full repetitions of the key + 1 in case the key doesn’t divide evenly
     # trimed to be the same length as the plaintext
@@ -92,7 +95,10 @@ def decrypt(ciphertext, key):
     
     
 
-    ciphertext = ''.join(filter(str.isalpha, ciphertext.upper()))
+    ciphertext = ''.join(ch for ch in ciphertext.upper() if ch.isalpha() and ch.isascii())
+    if not ciphertext:
+        raise ValueError("Ciphertext must contain at least one ASCII letter (A–Z).")
+    
     repeated_key = (key.upper() * ((len(ciphertext) // len(key)) + 1))[:len(ciphertext)]
     decrypted = []
     for p, k in zip(ciphertext, repeated_key):
