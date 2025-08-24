@@ -108,6 +108,9 @@ def decrypt(ciphertext, key):
     return ''.join(decrypted)
 
 
+
+
+
 assert encrypt("Attack at dawn!", "LEMON") == "LXFOP VEFRN HR"
 assert encrypt("Hello, World!", "KEY") == "RIJVS UYVJN"
 assert encrypt("Hello, World!", "key") == "RIJVS UYVJN"
@@ -132,10 +135,9 @@ for bad in ["ñЖ", "Ж", "ééé", "¡¡¡", "123!!!"]:
         raise AssertionError("Expected ValueError when no ASCII letters remain")
 
 
-
 assert decrypt("LXFOP VEFRN HR", "LEMON") == "ATTACKATDAWN"
 assert decrypt("RIJVS UYVJN", "KEY") == "HELLOWORLD"
-assert decrypt("rijvs uyvjn", "key") == "HELLOWORLD"  # lowercase + spaces tolerated
+assert decrypt("rijvs uyvjn", "key") == "HELLOWORLD"  
 
 
 try:
